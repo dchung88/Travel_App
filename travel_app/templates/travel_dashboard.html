@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Travel Dashboard</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        td {
+          color: blue;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+
+        h1 {
+          color: lime;
+        }
+        </style>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1><strong>Welcome {{loggedinuser.name}}!</strong></h1>
+        <a class="btn btn-primary" href="/logout" role="button">Log Out</a>
+    </div>
+
+    <div class="tripschedule">
+        <h4>Your Trip Schedules</h4>
+        <form action="/addPlan" method="POST">
+            {% csrf_token %}
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                <th scope="col">Destination</th>
+                <th scope="col">Travel Start Date</th>
+                <th scope="col">Travel End Date</th>
+                <th scope="col">Plan</th>
+                </tr>
+              </thead>
+                {% for tripobj in mytrips %}
+                <tr>
+                <td><a href="/destination/{{tripobj.id}}">{{tripobj.destination}}</a></td>
+                <td>{{tripobj.travel_date_from}}</td>
+                <td>{{tripobj.travel_date_to}}</td>
+                <td>{{tripobj.description}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+        <a class="btn btn-outline-success" href="/travelPlan" role="button">Add Travel Plan</a>
+    </div>
+
+    <div class="usersplans">
+        <h4>Other User's Travel Plans</h4>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th>Destination</th>
+              <th>Travel Start Date</th>
+              <th>Travel End Date</th>
+              <th>Do You Want to Join?</th>
+            </tr>
+          </thead>
+            {% for tripobj in othertrips %}
+            <tr>
+              <td>{{tripobj.planner.name}}</td>
+              <td><a href="/destination/{{tripobj.id}}">{{tripobj.destination}}</td>
+              <td>{{tripobj.travel_date_from}}</td>
+              <td>{{tripobj.travel_date_to}}</td>
+              <td><a href="/join/{{tripobj.id}}">Join</a></td>
+            </tr>
+            {%  endfor %}
+        </table>
+
+    </div>
+    
+    
+</body>
+</html>

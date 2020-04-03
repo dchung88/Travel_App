@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        section h1{
+            color: blue;
+        }
+
+        h1 {
+            color: lime;
+        }
+
+        h3 {
+            color: red;
+        }
+
+        .details {
+            color: red;
+        }
+    </style>
+    <title>Destination</title>
+</head>
+<body>
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1><strong>Travel Buddy</strong></h1>
+            <a class="btn btn-primary" href="/success" role="button">Home</a>
+            <a class="btn btn-primary" href="/logout" role="button">Log Out</a>
+        </div>
+    </div>
+
+    <section>
+    <div class="jumbotron">
+        <div class="container">
+
+        <h1><strong>{{destinationDetail.destination}}</strong></h1>
+        <h4 class="details"><strong>Planned By: </strong></h4> <h4><strong>{{destinationDetail.planner.name}}</strong></h4>
+        <h4 class="details"><strong>Description: </strong></h4> <h4><strong>{{destinationDetail.description}}</strong></h4>
+        <h4 class="details"><strong>Travel Date From: </strong></h4> <h4><strong>{{destinationDetail.travel_date_from}}</strong></h4>
+        <h4 class="details"><strong>Travel Date To: </strong></h4> <h4><strong>{{destinationDetail.travel_date_to}}</strong></h4>
+
+        </div>
+    </div>
+
+    <div class="jumbotron">
+        <div class="container">
+
+        <h3><strong>People joining this trip:</strong></h3>
+        {% for user in destinationDetail.users.all %}
+        <h5><strong>{{user.name}}</strong></h5>
+        {% endfor %}
+
+        </div>
+    </div>
+    </section>
+    
+</body>
+</html>
